@@ -1,0 +1,43 @@
+//etar maddome data fetch korteche
+useEffect(() => {
+        fetch("http://localhost:5000/users")//this fetch function needs one parameter
+            .then(res => res.json())
+            .then(data => setUsers(data))
+            .catch(err => { })
+    }, [])
+
+
+
+     const handleAddUser = event => {
+
+        event.preventDefault();
+        const name = event.target.name.value; //targeting the input field name
+        const email = event.target.email.value;
+        const password = event.target.password.value;
+        const user = { name, email, password };
+        console.log(user);
+
+        //this is only fetch data from apis
+
+
+        fetch('http://localhost:5000/users', {
+            //this fetch parameter needs two parameter one is url 
+
+            //second one is object and object has three property 1. method:'post , 2. header : "content-type: "application/json"
+
+
+            //  3. body : JSON.stringify
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(user)
+
+
+        }).then(res => res.json())
+            .then(data => {
+                const newUsers = [...users, data]
+                 setUsers(newUsers)
+            }).catch(err => [])
+
+    }
