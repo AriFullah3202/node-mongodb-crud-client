@@ -1,30 +1,24 @@
 import { useEffect, useState, useSyncExternalStore } from "react";
 
-/*
-  This example requires some changes to your config:
-  
-  ```
-  // tailwind.config.js
-  module.exports = {
-    // ...
-    plugins: [
-      // ...
-      require('@tailwindcss/forms'),
-    ],
-  }
-  ```
-*/
 
 export default function Login() {
-    const [users, setUsers] = useState([])
+
+
+    const [user, setUser] = useState({})
+
+
+
+
+
+
     //we take data from backend application
 
-    useEffect(() => {
-        fetch("http://localhost:5000/users")//this fetch function needs one parameter
-            .then(res => res.json())
-            .then(data => setUsers(data))
-            .catch(err => { })
-    }, [])
+    // useEffect(() => {
+    //     fetch("http://localhost:5000/users")//this fetch function needs one parameter
+    //         .then(res => res.json())
+    //         .then(data => setUser(data))
+    //         .catch(err => { })
+    // }, [])
 
 
 
@@ -57,11 +51,21 @@ export default function Login() {
 
         }).then(res => res.json())
             .then(data => {
-                const newUsers = [...users, data]
-                 setUsers(newUsers)
+                const newUsers = [...user, data]
+                console.log(newUsers)
+                setUser(newUsers)
             }).catch(err => [])
 
     }
+    const handleInputBlur = event => {
+        const name = event.target.name;
+        const value = event.target.value;
+        const newUser = { ...user };
+        newUser[name] = value;
+        console.log(newUser)
+        setUser(newUser)
+    }
+
     return (
         <>
 
@@ -105,6 +109,7 @@ export default function Login() {
                                     Email address
                 </label>
                                 <input
+                                    onBlur={handleInputBlur}
                                     id="email-address"
                                     name="email"
                                     type="email"
@@ -119,6 +124,7 @@ export default function Login() {
                                     Password
                 </label>
                                 <input
+                                    onBlur={handleInputBlur}
                                     id="password"
                                     name="password"
                                     type="password"
@@ -133,6 +139,7 @@ export default function Login() {
                         <div className="flex items-center justify-between">
                             <div className="flex items-center">
                                 <input
+                                    onBlur={handleInputBlur}
                                     id="remember-me"
                                     name="remember-me"
                                     type="checkbox"
@@ -164,12 +171,12 @@ export default function Login() {
                     </form>
                 </div>
             </div>
-            <h1>{users.length}</h1>
+            {/* <h1>{users.length}</h1>
             {
                 users.map(user => {
                     return <p key={user.id} >{user.name} {user.email}</p>
                 })
-            }
+            } */}
         </>
     )
 }

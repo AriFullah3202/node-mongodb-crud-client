@@ -38,6 +38,7 @@ useEffect(() => {
             .then(data => {
                 const newUsers = [...users, data]
                  setUsers(newUsers)
+                 console.log(data);
             }).catch(err => [])
 
     }
