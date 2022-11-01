@@ -55,7 +55,7 @@ const DashBoard = () => {
                                     <td className="p-3">{user.email}</td>
                                     <td className="p-3">
                                         <button onClick={() => handleDelete(user)}>Delete</button>
-                                        <button className="p-3" onClick={() => handleDelete(user)}>Edit</button>
+                                        <Link className="p-3" to={`/update/${user._id}`} >Edit</Link>
                                     </td>
                                     {
 
